@@ -1,0 +1,6 @@
+crewai==0.28.8
+crewai_tools==0.1.6
+langchain_community==0.0.29
+openai==0.27.0
+streamlit==1.16.0
+python-dotenv==0.21.0
