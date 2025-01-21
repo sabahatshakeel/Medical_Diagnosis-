@@ -95,8 +95,11 @@ if st.button('Start Diagnosis'):
                 verbose=2
             )
             
-            # Run the task with the correct input structure by passing 'inputs' as a keyword argument
-            result = crew.kickoff(inputs={"topic": topic})  # Use 'inputs' as a keyword argument
+            # Setting the topic in each agent's input
+            crew_inputs = {"topic": topic}
+
+            # Run the task with the input passed to the agents through the Crew object
+            result = crew.kickoff(crew_inputs)
 
             # Display results
             st.subheader('Diagnosis and Report:')
