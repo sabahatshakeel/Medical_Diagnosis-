@@ -1,10 +1,11 @@
 import warnings
-warnings.filterwarnings('ignore')
-
 import os
 import streamlit as st
 from crewai import Agent, Task, Crew
 from utils import get_openai_api_key  # Importing the function to get OpenAI API key
+
+# Suppress warnings
+warnings.filterwarnings('ignore')
 
 # Load OpenAI API key from the .env file
 openai_api_key = get_openai_api_key()
@@ -12,7 +13,6 @@ os.environ["OPENAI_API_KEY"] = openai_api_key  # Set it as an environment variab
 
 # Optional: If you use the OpenAI API directly, you can also set the model
 os.environ["OPENAI_MODEL_NAME"] = 'gpt-3.5-turbo'
-
 
 # Define Agents
 resident_doctor = Agent(
@@ -46,7 +46,6 @@ medical_report_writer = Agent(
     allow_delegation=False,
     verbose=True
 )
-
 
 # Define Tasks
 initial_statistics = Task(
@@ -88,18 +87,23 @@ topic = st.text_input('Enter the patient condition/topic (e.g., Diabetes Managem
 # Process when the button is pressed
 if st.button('Start Diagnosis'):
     if topic:
-        # Updated Crew and Execution
-        crew = Crew(
-            agents=[resident_doctor, doctor, medical_report_writer],
-            tasks=[initial_statistics, patient_examination, report_writing],
-            verbose=2
-        )
-        
-        # Kick off the task
-        result = crew.kickoff(inputs={"topic": topic})
+        try:
+            # Initialize Crew with the agents and tasks
+            crew = Crew(
+                agents=[resident_doctor, doctor, medical_report_writer],
+                tasks=[initial_statistics, patient_examination, report_writing],
+                verbose=2
+            )
+            
+            # Run the task with the correct input structure
+            result = crew.kickoff({"topic": topic})
 
-        # Display results
-        st.subheader('Diagnosis and Report:')
-        st.markdown(result)
+            # Display results
+            st.subheader('Diagnosis and Report:')
+            st.markdown(result)
+
+        except Exception as e:
+            # Catch any errors and display them
+            st.error(f"An error occurred: {e}")
     else:
         st.error("Please enter a valid topic.")
