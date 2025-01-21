@@ -95,8 +95,8 @@ if st.button('Start Diagnosis'):
                 verbose=2
             )
             
-            # Run the task with the correct input structure
-            result = crew.kickoff({"topic": topic})
+            # Run the task with the correct input structure by passing 'inputs' as a keyword argument
+            result = crew.kickoff(inputs={"topic": topic})  # Use 'inputs' as a keyword argument
 
             # Display results
             st.subheader('Diagnosis and Report:')
