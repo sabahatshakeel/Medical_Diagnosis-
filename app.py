@@ -95,11 +95,14 @@ if st.button('Start Diagnosis'):
                 verbose=2
             )
             
-            # Setting the topic in each agent's input
-            crew_inputs = {"topic": topic}
-
-            # Run the task with the input passed to the agents through the Crew object
-            result = crew.kickoff(crew_inputs)
+            # Instead of passing inputs to kickoff(), we may need to set the input for agents directly in their tasks
+            # Update tasks with the topic
+            initial_statistics.description = initial_statistics.description.format(topic=topic)
+            patient_examination.description = patient_examination.description.format(topic=topic)
+            report_writing.description = report_writing.description.format(topic=topic)
+            
+            # Run the task
+            result = crew.kickoff()
 
             # Display results
             st.subheader('Diagnosis and Report:')
