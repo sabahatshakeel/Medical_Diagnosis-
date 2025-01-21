@@ -1,7 +1,6 @@
 crewai==0.1.0
-crewai_tools==0.0.1
-langchain_community==0.0.1
-openai==0.27.0
-streamlit
-python-dotenv
-
+crewai_tools>=0.0.1
+langchain_community>=0.0.1
+openai>=0.28.1,<0.29.0
+streamlit>=1.16.0
+python-dotenv>=0.21.0
