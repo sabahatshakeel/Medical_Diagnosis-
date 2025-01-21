@@ -4,4 +4,4 @@ langchain_community
 openai
 streamlit
 python-dotenv
-chromadb
+
