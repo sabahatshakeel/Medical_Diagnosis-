@@ -1,12 +1,9 @@
-
 import warnings
 warnings.filterwarnings('ignore')
 
 import os
 import streamlit as st
-from crewai import Agent
-from crewai import Task
-from crewai import Crew
+from crewai import Agent, Task, Crew
 from utils import get_openai_api_key  # Importing the function to get OpenAI API key
 
 # Load OpenAI API key from the .env file
